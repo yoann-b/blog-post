@@ -1,0 +1,184 @@
+p#date{
+	color: grey;
+	font-size: 14px;
+}
+
+p#contenu{
+	border: 1px dashed lightgrey;
+	padding: 20px;
+}
+
+#post h1{
+	margin-top: 60px;
+}
+
+.new_post > a > span{
+	font-size: 14px;
+}
+
+p#publication{
+	text-align: right;
+	font-size: 15px;
+	float:right;
+	display: inline-block;
+}
+
+p#vues{
+	text-align: left;
+	font-size: 15px;
+	display: inline-block;
+}
+
+.vues-max{
+	color: #1B7B98;
+}
+
+.vues-max > span{
+	font-size: 13px;
+	color: #FFCC00;
+}
+
+.barre_filtre{
+	padding: 10px;
+	background-color: #C34C39;
+	border: none;
+	text-align: center;
+}
+
+.barre_filtre input{
+	border: none;
+	color: #C34C39;
+	font-size: 18px;
+	padding: 5px;
+	outline: none;
+}
+
+.barre_filtre select{
+	border: none;
+	color: #C34C39;
+	font-size: 18px;
+	outline: none;
+	margin: 5px;
+	border-radius: 0px;
+}
+
+.barre_filtre button{
+	border: none;
+	font-size: 18px;
+	padding: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+	background-color: #75B370;
+	outline: none;
+}
+
+.blog-post{
+	padding: 50px;
+	padding-left: 70px;
+	padding-right: 70px;
+}
+
+.barre_filtre button:hover{
+	background-color: white;
+	color: #75B370;
+}
+
+.new_post{
+	display: inline-block;
+}
+
+.cancel_research{
+	float:right;
+	display: none;
+}
+
+.cancel_research > a > span{
+	font-size: 14px;
+}
+
+.slick-next.slick-arrow{
+	color:#428BCA;
+	position: absolute;
+	font-size: 4vw;
+	right: 10%;
+	bottom: 40%;
+	border: none;
+	background-color: transparent;
+	outline: none;
+	z-index: 999;
+	transition: color 1s;
+}
+
+.slider, .row{
+	outline: none;
+}
+
+.slick-prev.slick-arrow{
+	outline: none;
+	color:#428BCA;
+	font-size: 4vw;
+	position: absolute;
+	left: 10%;
+	bottom: 40%;
+	border: none;
+	background-color: transparent;
+	z-index: 999;
+	transition: color 1s;
+}
+
+.slick-prev.slick-arrow:hover{
+	color: black;
+	transition: color 1s;
+}
+
+.slick-next.slick-arrow:hover{
+	color: black;
+	transition: color 1s;
+}
+
+.slick-dots{
+	list-style:none;
+	margin-left:0;
+	padding-left:0;
+	text-align: center;
+	margin-top: 10px;
+}
+
+.slick-dots > li{
+	display: inline;
+	margin: 2px;
+}
+
+.slick-dots > li > button{
+	width: 40px;
+	border: 1px solid #428BCA;
+	background-color: white;
+	color: #428BCA;
+	outline: none;
+}
+
+.slick-dots > li.slick-active > button{
+	color: white;
+	background-color: #428BCA;
+}
+
+.options{
+	text-align: center;
+}
+
+.options > button{
+	background-color:#428BCA;
+	border: 1px solid #428BCA;
+	outline: none;
+	border-radius: 5px;
+}
+
+.options > button:hover{
+	color:#428BCA;
+	background-color:white;
+	border: 1px solid #428BCA;
+}
+
+#poster_article, #annuler_recherche{
+	background-color: transparent;
+}

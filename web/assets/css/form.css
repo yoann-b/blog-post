@@ -1,0 +1,98 @@
+form > #form > div{
+	padding: 5px;
+}
+
+form > #form > div > label{
+	display: block;
+}
+
+.acheter_place{
+	background-color: #186F89;
+	border: 1px solid #186F89;
+	color: white;
+	transition: all 0.4s;
+	padding: 5px;
+}
+
+.acheter_place:hover{
+	color: #186F89;
+	background-color: white;
+}
+
+form > #form > div > input, textarea{
+	border: 1px solid #C34C39;
+	outline: none;
+	padding: 3px;
+	resize:none;
+	width: 100%;
+	border-radius: 4px;
+	color: #C34C39;
+}
+
+form > #form > div > button{
+	border: 1px solid white;
+	outline: none;
+	background-color: transparent;
+	border-radius: 4px;
+}
+
+form > #form > div > textarea{
+	height: 200px;
+}
+
+textarea#form_content{
+	height:200px;
+}
+
+.well{
+	background-color: transparent;
+	color: white;
+}
+
+h3{
+	font-size: 30px;
+}
+
+#panel-buttons{
+	text-align: center;
+}
+
+#panel-buttons > button{
+	margin-right: 5px;
+	width: 110px;
+	text-align: right;
+	outline: none;
+}
+
+#panel-buttons > button > span{
+	font-size: 14px;
+	float: left;
+	padding-top: 4px;
+}
+
+#panel-buttons > button#delete{
+	background-color: #FFC150;
+	border: none;
+}
+
+#panel-buttons > button#update{
+	background-color: #1B7B98;
+	border: none;
+	color: white;
+}
+
+#panel-buttons > a{
+	margin-right: 10px;
+}
+
+#panel-buttons > a#update{
+	color: #1B7B98;
+}
+
+#panel-buttons > a#delete{
+	color: #FFC150;
+}
+
+.barre_filtre{
+	border: 1px solid grey;
+}
