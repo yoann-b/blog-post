@@ -16,7 +16,36 @@
 
 			<div class="well">
 				{{ form_start(form) }}
-				{{ form_widget(form) }}
+				<div id="form">
+					{{ form_row(form.title) }}
+					{{ form_row(form.slug) }}
+					{{ form_label(form.content) }}
+					<div class="wiswig">
+						<div class="wiswig-group">
+							<button type="button" id="left"><span class="glyphicon glyphicon-align-left"></span></button>
+							<button type="button" id="right"><span class="glyphicon glyphicon-align-right"></span></button>
+							<button type="button" id="center"><span class="glyphicon glyphicon-align-center"></span></button>
+							<button type="button" id="justify"><span class="glyphicon glyphicon-align-justify"></span></button>
+						</div>
+						<div class="wiswig-group">
+							<button type="button" id="bold"><span class="glyphicon glyphicon-bold"></span></button>
+							<button type="button" id="right"><span class="glyphicon glyphicon glyphicon-italic"></span></button>
+						</div>
+						<div class="wiswig-group">
+							<button type="button" id="color"><span class="glyphicon glyphicon-th"></span></button>
+						</div>
+						<div class="wiswig-group">
+							<button type="button" id="return">Retour ligne</span></button>
+						</div>
+					</div>
+					{{ form_widget(form.content) }}
+					<label>Aperçu</label>
+					<div class="wiswig-apercu">
+					</div>
+					{{ form_row(form.author) }}
+					{{ form_row(form.published) }}
+					{{ form_row(form.save) }}
+				</div>
 				{{ form_end(form) }}
 			</div>
 		</div>
@@ -62,8 +91,24 @@
 
 		$(document).ready(function(){
 
+			var val = $('#form_content').val();
+			$('.wiswig-apercu').html(val);
+
+			$('#form_content').keyup(function(){
+				var val = $(this).val();
+				$('.wiswig-apercu').html(val);
+			});
+
 			$('#form_slug').css("display", "none");
 
+			$('#bold').click(function(){
+				alert();
+			});
+
+			$('#return').click(function(){
+				var val = $('#form_content').val();
+				$('#form_content').val(val + '\n<br/>\n');
+			});
 
 			var val = slug($('#form_title').val());
 			$("label[for='form_slug']").text('Slug: ' + val);
