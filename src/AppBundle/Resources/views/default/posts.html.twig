@@ -1,0 +1,197 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <section id="home">	
+		<div id="main-slider" class="carousel slide" data-ride="carousel">
+			<div class="carousel-inner">
+				<div class="item active">
+					<img class="img-responsive" src="{{ asset('bundles/app/images/slider/bg4.jpg') }}" alt="slider">
+				</div>
+			</div>
+		</div>    	
+    </section>
+	<!--/#home-->
+	
+	<section id="twitter">
+		<div id="twitter-feed" class="carousel slide" data-interval="false">
+			<div class="row">
+		        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="barre_filtre">
+						<div class="row">
+							<div class="col-lg-3 col-md-12 col-sm-4 col-xs-12">
+								<button data-href="{{ path('create') }}" type="button" id="poster_article"><span class="glyphicon glyphicon-pencil"></span> Poster un article sur le blog</button>
+							</div>
+							<div class="col-lg-2 col-md-12 col-sm-4 col-xs-12">
+								<label>Trier par:</label>
+								<select name="select">
+									<option value="date_update">Mise à jour</option>
+									<option value="date_create">Création</option> 
+								</select>
+							</div>
+							<div class="col-lg-2 col-md-12 col-sm-4 col-xs-12">			
+								<label>Ordre</label>
+								<select name="select">
+									<option value="value1">Décroissant</option> 
+									<option value="value2">Croissant</option>
+								</select>
+							</div>
+							<div class="col-lg-2 col-md-12 col-sm-4 col-xs-12">
+								<input type="text" id="valeur_recherche" name="recherche" value="{{ recherche }}" placeholder="Faire une recherche..."/>
+								<button type="button" id="valider_recherche">OK</button>
+							</div>	
+							<div class="col-lg-3 col-md-12 col-sm-4 col-xs-12">
+								<button data-href="{{ path('posts') }}" type="button" id="annuler_recherche"><span class="glyphicon glyphicon-globe"></span> Tous les articles</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<br/>
+			<div class="row">
+				<div class="col-lg-3 col-md-3 hidden-sm hidden-xs">
+				</div>
+		        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+					<div class="options">
+						<button type="button" id="mode_slider">Activer mode slider</button>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-3 hidden-sm hidden-xs">
+				</div>
+			</div>
+			<br/>
+			<div class="slider">
+			{% for post in listBlogpost %}
+				<div class="row">
+					<div class="col-lg-3 col-md-3 hidden-sm hidden-xs">
+					</div>
+			        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+						<div class="blog-post">
+							<h2>{{ post.title|e }}</h2>
+							<p>{{ post.content|slice(0, 100) }} [...]</p>
+							<a href="{{ path('blog_show', {'slug': post.slug}) }}" class="btn btn-primary">Voir le billet de blog <i class="fa fa-angle-right"></i></a>
+							<hr>
+							<p id="vues"><label class="data-vues">{{ post.nbVues }}</label> vue(s)<br/>Auteur: <label class="data-auteur">{{ post.author }}</label></p>
+							<p id="publication">Publié le : <label class="data-publication">{{ post.date|date("d/m/Y") }}</label><br/>
+							Mis à jour le : <label class="data-update">{{ post.updated|date("d/m/Y") }}</label> </p>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-3 hidden-sm hidden-xs">
+					</div>
+				</div>
+			{% endfor %}
+			</div>
+		</div>		
+	</section>
+{% endblock %}
+
+{% block javascripts %}
+	<script type="text/javascript">
+		function $_GET(param) {
+			var vars = {};
+			window.location.href.replace( 
+				/[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
+				function( m, key, value ) { // callback
+					vars[key] = value !== undefined ? value : '';
+				}
+			);
+
+			if ( param ) {
+				return vars[param] ? vars[param] : null;	
+			}
+			return vars;
+
+			//http://www.creativejuiz.fr/blog/javascript/recuperer-parametres-get-url-javascript
+		}
+		$(document).ready(function(){
+
+			if( $_GET('mode') != null && $_GET('mode') == 'slider'){
+				$('.slider').slick({
+					infinite: true,
+					slidesToShow: 1,
+					adaptiveHeight: true,
+					speed: 500,
+					dots: true,
+					autoplay: true,
+					autoplaySpeed: 5000,
+					slidesToScroll: 1
+				});
+				$('#mode_slider').attr('data-status', 'active');
+				$('#mode_slider').css("background-color", "orange");
+				$('#mode_slider').css("border-color", "orange");
+				$('#mode_slider').text("Désactiver mode slider");
+			}else{
+				$('#mode_slider').attr('data-status', 'desactive');
+			}
+
+			$('.slick-next.slick-arrow').html('<span class="glyphicon glyphicon-chevron-right"></span>');
+			$('.slick-prev.slick-arrow').html('<span class="glyphicon glyphicon-chevron-left"></span>');
+
+			var array_vues = [];
+			$('.data-vues').each(function(){
+				array_vues.push($(this).text()) ;
+			});
+
+			if( $_GET('search') != null && $_GET('search').length > 1){
+				$('.cancel_research').fadeIn();
+			}
+
+			var plus_grande_valeur = 0;
+			for(var i = 0; i < array_vues.length; i++){
+				console.log('Valeur = ' + array_vues[i]);
+				console.log('Plus grande = ' + plus_grande_valeur);
+				if( parseInt(array_vues[i]) > parseInt(plus_grande_valeur) ){
+					plus_grande_valeur = array_vues[i];
+					console.log(array_vues[i] +' > '+ plus_grande_valeur)
+				}
+				console.log('Next');
+			}
+			console.log('Plus grande valeur : ' + plus_grande_valeur);
+			$('.data-vues').each(function(){
+				var ceci = $(this);
+				if( $(this).text() == plus_grande_valeur){
+					ceci.addClass('vues-max');
+					ceci.append(' <span class="glyphicon glyphicon-star"></span>');
+				}
+			});
+
+			$('#valider_recherche').click(function(){
+				var valeur_recherche = $('#valeur_recherche').val();
+				if(valeur_recherche.length < 1){
+					valeur_recherche = '%';
+				}
+				if( $_GET('mode') != null && $_GET('mode') == 'slider'){
+					document.location.href = '{{ path("posts") }}?search=' + valeur_recherche + '&mode=slider';
+				}else{				
+					document.location.href = '{{ path("posts") }}?search=' + valeur_recherche;
+				}
+			});
+
+			$('#mode_slider').click(function(){
+				var status = $(this).attr('data-status');
+				if(status == 'desactive'){
+					if( $_GET('search') != null && $_GET('search').length > 1){
+						document.location.href = '{{ path("posts") }}?search='+$_GET('search')+'&mode=slider';
+					}else{
+						document.location.href = '{{ path("posts") }}?mode=slider';
+					}
+				}else{
+					if( $_GET('search') != null && $_GET('search').length > 1){
+						document.location.href = '{{ path("posts") }}?search='+$_GET('search');
+					}else{
+						document.location.href = '{{ path("posts") }}';
+					}
+				}
+			});
+
+
+			$('#annuler_recherche').click(function(){
+				window.location.href = $(this).attr('data-href');
+			});
+
+			$('#poster_article').click(function(){
+				window.location.href = $(this).attr('data-href');
+			});
+
+		});
+	</script>
+{% endblock %}

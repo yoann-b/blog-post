@@ -1,0 +1,131 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <section id="home">	
+		<div id="main-slider" class="carousel slide" data-ride="carousel">
+			<div class="carousel-inner">
+				<div class="item active">
+					<img class="img-responsive" src="{{ asset('bundles/app/images/slider/bg4.jpg') }}" alt="slider">
+				</div>
+			</div>
+		</div>    	
+    </section>
+	<!--/#home-->
+	
+	<section id="twitter">
+		<div id="twitter-feed" class="carousel slide" data-interval="false">
+			<div class="row">
+		        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="barre_filtre">
+						<div class="row">
+							<div class="col-lg-3 col-md-12 col-sm-4 col-xs-12">
+								<button data-href="{{ path('create_concert') }}" type="button" id="poster_article"><span class="glyphicon glyphicon-pencil"></span> Poster un concert</button>
+							</div>
+							<div class="col-lg-2 col-md-12 col-sm-4 col-xs-12">
+								<label>Trier par:</label>
+								<select name="select">
+									<option value="date_update">Mise à jour</option>
+									<option value="date_create">Création</option> 
+								</select>
+							</div>
+							<div class="col-lg-2 col-md-12 col-sm-4 col-xs-12">			
+								<label>Ordre</label>
+								<select name="select">
+									<option value="value1">Décroissant</option> 
+									<option value="value2">Croissant</option>
+								</select>
+							</div>
+							<div class="col-lg-2 col-md-12 col-sm-4 col-xs-12">
+								<input type="text" id="valeur_recherche" name="recherche" value="" placeholder="Faire une recherche..."/>
+								<button type="button" id="valider_recherche">OK</button>
+							</div>	
+							<div class="col-lg-3 col-md-12 col-sm-4 col-xs-12">
+								<button data-href="{{ path('concert') }}" type="button" id="annuler_recherche"><span class="glyphicon glyphicon-globe"></span> Tous les concerts</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<br/>
+			{#
+			<div class="row">
+				<div class="col-lg-3 col-md-3 hidden-sm hidden-xs">
+				</div>
+		        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+					<div class="options">
+						<button type="button" id="mode_slider">Activer mode slider</button>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-3 hidden-sm hidden-xs">
+				</div>
+			</div>
+			<br/>
+
+			#}
+			<div class="slider">
+				<div class="row">
+					{% for c in concerts %}
+				        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+							<div class="blog-post">
+								<div class="cross" data-id="{{ c.id }}">X</div>
+								<div class="pencil" data-id="{{ c.id }}"><span class="glyphicon glyphicon-pencil"></span></div>
+								<h2>{{ c.title|e }}</h2>
+								<p>{{ c.description|slice(0, 100) }} [...]</p>
+								<a href="{{ path('ticket', {'id': c.id}) }}" class="btn btn-primary">Voir les détails du concert <i class="fa fa-angle-right"></i></a>
+								<hr>
+								<h4>Reste: {{ c.places }} places</h4>
+								<p>Artistes présents sur scène: {{ c.artist }}</p>
+								<p>Date du concert: {{ c.date|date("d/m/Y") }}</p>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>		
+	</section>
+{% endblock %}
+
+{% block javascripts %}
+	<script type="text/javascript">
+		function $_GET(param) {
+			var vars = {};
+			window.location.href.replace( 
+				/[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
+				function( m, key, value ) { // callback
+					vars[key] = value !== undefined ? value : '';
+				}
+			);
+
+			if ( param ) {
+				return vars[param] ? vars[param] : null;	
+			}
+			return vars;
+
+			//http://www.creativejuiz.fr/blog/javascript/recuperer-parametres-get-url-javascript
+		}
+		$(document).ready(function(){
+
+			$('.cross').click(function(){
+				var id = $(this).attr('data-id');
+				document.location.href = '{{ path("remove_concert") }}?id='+id;
+			});
+
+			$('.pencil').click(function(){
+				var id = $(this).attr('data-id');
+				document.location.href = '{{ path("modify_concert") }}?id='+id;
+			});
+
+			$('#valider_recherche').click(function(){
+			});
+
+			$('#annuler_recherche').click(function(){
+				window.location.href = $(this).attr('data-href');
+			});
+
+			$('#poster_article').click(function(){
+				window.location.href = $(this).attr('data-href');
+			});
+
+		});
+	</script>
+{% endblock %}

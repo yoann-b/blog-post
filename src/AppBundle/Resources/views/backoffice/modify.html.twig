@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<section id="home">	
+		<div id="main-slider" class="carousel slide" data-ride="carousel">
+			<div class="carousel-inner">
+				<div class="item active">
+					<img class="img-responsive" src="{{ asset('bundles/app/images/slider/bg4.jpg') }}" alt="slider">
+				</div>
+			</div>
+		</div>    	
+    </section>
+	<section id="explore">
+		<div class="container">
+			<h3>Modifier un article</h3>
+
+			<div class="well">
+				{{ form_start(form) }}
+				{{ form_widget(form) }}
+				{{ form_end(form) }}
+			</div>
+		</div>
+	</section>
+{% endblock %}
+
+{% block javascripts %}
+	<script type="text/javascript">
+		function $_GET(param) {
+			var vars = {};
+			window.location.href.replace( 
+				/[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
+				function( m, key, value ) { // callback
+					vars[key] = value !== undefined ? value : '';
+				}
+			);
+
+			if ( param ) {
+				return vars[param] ? vars[param] : null;	
+			}
+			return vars;
+
+			//http://www.creativejuiz.fr/blog/javascript/recuperer-parametres-get-url-javascript
+		}
+
+		var slug = function(str) {
+		  str = str.replace(/^\s+|\s+$/g, ''); // trim
+		  str = str.toLowerCase();
+
+		  // remove accents, swap ñ for n, etc
+		  var from = "ãàáäâẽèéëêìíïîõòóöôùúüûñç·/_,:;";
+		  var to   = "aaaaaeeeeeiiiiooooouuuunc------";
+		  for (var i=0, l=from.length ; i<l ; i++) {
+		    str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+		  }
+
+		  str = str.replace(/[^a-z0-9 -]/g, '') // remove invalid chars
+		    .replace(/\s+/g, '-') // collapse whitespace and replace by -
+		    .replace(/-+/g, '-'); // collapse dashes
+
+		  return str;
+		};
+
+		$(document).ready(function(){
+
+			$('#form_slug').css("display", "none");
+
+
+			var val = slug($('#form_title').val());
+			$("label[for='form_slug']").text('Slug: ' + val);
+			$('#form_slug').val(val);
+
+			$('#form_title').keyup(function(){
+				var val = slug($(this).val());
+				$("label[for='form_slug']").text('Slug: ' + val);
+				$('#form_slug').val(val);
+			})
+
+		});
+	</script>
+{% endblock %}

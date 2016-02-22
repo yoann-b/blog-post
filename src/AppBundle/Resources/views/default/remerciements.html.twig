@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<section id="home">	
+		<div id="main-slider" class="carousel slide" data-ride="carousel">
+			<div class="carousel-inner">
+				<div class="item active">
+					<img class="img-responsive" src="{{ asset('bundles/app/images/slider/bg4.jpg') }}" alt="slider">
+				</div>
+			</div>
+		</div>    	
+    </section>
+	<!--/#home-->
+
+	
+	<section id="post">
+		<div id="twitter-feed" class="carousel slide" data-interval="false">
+			<div class="row">
+				<div class="post col-md-12">
+					<h1>Merci de votre commande</h1>
+					<p id="contenu">
+						Nous vous remercions de votre achat pour le concert : {{ concert.title }}
+					</p>
+					<p id="date">
+						Rappel de la date: {{ concert.date|date("d/m/Y") }}
+					</p>
+					<p id="panel-buttons">
+						Nous vous enverrons un mail de confirmation.
+					</p>
+				</div>
+				{#
+				<div class="item">
+					<img src="https://pbs.twimg.com/profile_images/443336758403424256/U5bzXI5l.jpeg" alt="">
+					<p>Creator of the PHP framework Symfony</p>
+					<a href="https://twitter.com/fabpot">Twitter account</a>
+				</div>
+				#}
+			</div>
+		</div>		
+	</section><!--/#twitter-feed-->
+{% endblock %}

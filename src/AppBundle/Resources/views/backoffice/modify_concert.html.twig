@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<section id="home">	
+		<div id="main-slider" class="carousel slide" data-ride="carousel">
+			<div class="carousel-inner">
+				<div class="item active">
+					<img class="img-responsive" src="{{ asset('bundles/app/images/slider/bg4.jpg') }}" alt="slider">
+				</div>
+			</div>
+		</div>    	
+    </section>
+	<section id="explore">
+		<div class="container">
+			<h3>Modifier un concert</h3>
+
+			<div class="well">
+				{{ form_start(form) }}
+				{{ form_widget(form) }}
+				{{ form_end(form) }}
+			</div>
+		</div>
+	</section>
+{% endblock %}
